@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue Guide</title>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <h1>Vue.js Guide</h1>
+  <div id="app">
+    <ol>
+      <li v-for="chapter in chapters" v-cloak>
+        <a v-bind:href="chapter.page">{{chapter.text}}</a>
+      </li>
+    </ol>
+  </div>
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        chapters: [{
+            text: 'Introduction',
+            page: 'introduction.html'
+          },
+          {
+            text: 'The Vue instance',
+            page: 'instance.html'
+          },
+          {
+            text: 'Template Syntax',
+            page: 'template-syntax.html'
+          },
+          {
+            text: 'Computed Properties and Watchers',
+            page: 'computed-properties-watchers.html'
+          }
+        ]
+      }
+    });
+  </script>
+</body>
+
+</html>

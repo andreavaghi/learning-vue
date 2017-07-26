@@ -1,0 +1,52 @@
+[v-cloak] {
+  display: none;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  width: 60ch;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+h1, h3, h5 {
+  font-family: 'Merriweather', serif;
+}
+
+h3 {
+  opacity: .9;
+  color: #42b983;
+}
+
+h5 {
+  color: #42b983;
+}
+
+h5 span {
+  opacity: .5;
+  color: #000;
+}
+
+div[id^="app"] {
+  margin-bottom: 20px;
+}
+
+hr {
+  border-top: 2px solid #42b983;
+  border-bottom: none;
+}
+
+a {
+  color: #42b983;
+  display: inline-block;
+  padding: 0 5px;
+}
+
+a:active, a:focus {
+  background-color: #42b983;
+  color: #fff;
+}
+
+.green {
+  color: #42b983;
+}

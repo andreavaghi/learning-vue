@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <a href="/">← Back</a>
+  <hr />
+  <h1>Computed Properties and Watchers</h1>
+
+  <h3>Computed Properties</h3>
+  <div id="app">
+    <h5># <span>Basic Example</span></h5>
+    <span>Original message: "{{message}}"</span><br>
+    <span>Computed revers message: "{{reversedMessage}}"</span>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      },
+      computed: {
+        reversedMessage() {
+          return this.message.split('').reverse().join('');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <a href="/">← Back</a>
+  <hr />
+  <h1>Template Syntax</h1>
+
+  <h3>Interpolations</h3>
+  <div id="app">
+    <h5># <span>Text</span></h5>
+    <span>This message will update: {{message}}</span><br>
+    <span v-once>This message won't update: {{message}}</span><br>
+    <button v-on:click="updateMessage">Update Message</button>
+
+    <h5># <span>Raw HTML</span></h5>
+    <span v-html="rawHtml"></span>
+
+    <h5># <span>Attributes</span></h5>
+    <span v-bind:class="color">I'm {{color}}</span><br>
+    <button v-on:click="changeColor">Add class</button><br>
+    <span>Disabled button:</span> <button v-bind:disabled="true">Button</button>
+
+    <h5># <span>Using JavaScript Expressions</span></h5>
+    <span>The sum is of 1 + 1 is: {{1 + 1}}</span>
+  </div>
+
+  <h3>Directives</h3>
+  <div id="app-2">
+    <span v-if="seen">Show</span><br>
+    <button v-on:click="toggle">Show/Hide</button>
+    <h5># <span>Arguments</span></h5>
+    <a v-bind:href="url">www.example.com</a>
+    <h5># <span>Modifiers</span></h5>
+    <a v-bind:href="url" v-on:click.prevent="log">www.example.com (prevent)</a>
+  </div>
+
+  <h3>Filters</h3>
+  <div id="app-3">
+    <span>Capitalize {{message | capitalize}}</span>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!',
+        rawHtml: '<strong>Hi, i\'m HTML!</strong>',
+        color: 'black'
+      },
+      methods: {
+        updateMessage() {
+          this.message = 'Hello Vue, updated!';
+        },
+        changeColor() {
+          this.color = 'green';
+        }
+      }
+    });
+
+    var app2 = new Vue({
+      el: '#app-2',
+      data: {
+        seen: true,
+        url: 'http://www.example.com'
+      },
+      methods: {
+        toggle() {
+          this.seen = !this.seen;
+        },
+        log() {
+          console.log('prevented');
+        }
+      }
+    });
+
+    var app3 = new Vue({
+      el: '#app-3',
+      data: {
+        message: 'hello vue!'
+      },
+      filters: {
+        capitalize(value) {
+          if (!value) {
+            return ''
+          };
+          value = value.toString();
+          return value.charAt(0).toUpperCase() + value.slice(1);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
