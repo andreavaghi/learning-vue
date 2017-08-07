@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Vue</title>
-  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -90,8 +90,8 @@
       filters: {
         capitalize(value) {
           if (!value) {
-            return ''
-          };
+            return '';
+          }
           value = value.toString();
           return value.charAt(0).toUpperCase() + value.slice(1);
         }

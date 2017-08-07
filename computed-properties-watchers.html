@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Vue</title>
-  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -17,20 +17,110 @@
   <div id="app">
     <h5># <span>Basic Example</span></h5>
     <span>Original message: "{{message}}"</span><br>
-    <span>Computed revers message: "{{reversedMessage}}"</span>
+    <span>Computed reverse message: "{{reversedMessage}}"</span>
+
+    <h5># <span>Computed Caching vs Methods</span></h5>
+    <span>Computed reverse message (Cache): "{{reversedMessage}}"</span><br>
+    <span>Computed reverse message (Method): "{{reversedMessageMethod()}}"</span>
+
+    <h5># <span>Computed vs Watched Property</span></h5>
+    <span>Watchers: {{fullName}}</span><br>
+    <span>Computed: {{fullNameComputed}}</span>
+
+    <h5># <span>Computed Setter</span></h5>
+    <span>Setter: {{fullNameSetter}}</span>
   </div>
 
+  <h3>Watchers</h3>
+  <div id="app-2">
+    <p>
+      Ask a yes/no question:
+      <input v-model="question">
+    </p>
+    <p>{{answer}}</p>
+    <img v-bind:src="gif" alt="">
+  </div>
+
+  <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
   <script src="https://unpkg.com/vue"></script>
   <script>
     var app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!'
+        message: 'Hello Vue!',
+        date: Date.now(),
+        firstName: 'Foo',
+        lastName: 'Bar',
+        fullName: 'Foo Bar'
       },
       computed: {
         reversedMessage() {
+          console.log('executed computed: ' + Date.now());
+          return this.message.split('').reverse().join('');
+        },
+        fullNameComputed() {
+          return this.firstName + ' ' + this.lastName;
+        },
+        fullNameSetter: {
+          get() {
+            return this.firstName + ' ' + this.lastName;
+          },
+          set(newValue) {
+            var names = newValue.split(' ');
+            this.firstName = names[0];
+            this.lastName = names[names.length - 1];
+          }
+        }
+      },
+      methods: {
+        reversedMessageMethod() {
+          console.log('executed method: ' + Date.now());
           return this.message.split('').reverse().join('');
         }
+      },
+      watch: {
+        firstName: function(val) {
+          this.fullName = val + ' ' + this.lastName;
+        },
+        lastName: function(val) {
+          this.fullName = this.firstName + ' ' + val;
+        }
+      }
+    });
+
+    var app2 = new Vue({
+      el: '#app-2',
+      data: {
+        question: '',
+        answer: 'I cannot give you an answer until you ask a question!',
+        gif: 'http://www.reactiongifs.com/r/waiting.gif'
+      },
+      watch: {
+        question(newQuestion) {
+          this.answer = 'Waiting for you to stop typing...';
+          this.getAnswer();
+        }
+      },
+      methods: {
+        getAnswer: _.debounce(
+          function() {
+            if (this.question.indexOf('?') === -1) {
+              this.answer = 'Questions usually contain a question mark. ;-)';
+              return;
+            }
+            this.answer = 'Thinking...';
+            var vm = this;
+            axios.get('https://yesno.wtf/api')
+              .then(function(response) {
+                vm.answer = _.capitalize(response.data.answer);
+                vm.gif = response.data.image;
+              })
+              .catch(function(error) {
+                vm.answer = 'Error! Could not reach the API. ' + error;
+              });
+          }, 500
+        )
       }
     });
   </script>

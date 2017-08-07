@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Vue</title>
-  <link href="https://fonts.googleapis.com/css?family=Merriweather|Open+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -61,11 +61,11 @@
       data: data,
       methods: {
         changeDataProperty() {
-          data.message = 'This is a Data property'
+          data.message = 'This is a Data property';
         },
         changeVmProperty() {
-          this.message = 'This is a VM property'
-        },
+          this.message = 'This is a VM property';
+        }
       }
     });
 
@@ -77,7 +77,7 @@
       created() {
         this.message = 'Hello Vue!';
       }
-    })
+    });
   </script>
 </body>
 

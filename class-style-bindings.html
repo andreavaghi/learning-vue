@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <a href="/">← Back</a>
+  <hr />
+  <h1>Class and Style Bindings</h1>
+
+  <h3>Binding HTML Classes</h3>
+  <div id="app">
+    <h5># <span>Object Syntax</span></h5>
+    <span :class="{active: isActive}">This text is active.</span><br>
+    <span class="static" :class="{active: isActive, 'has-error': hasError}">This text is active and has errors.</span><br>
+    <span class="static" :class="classObject">This text is active and has errors. (with classObject - static)</span><br>
+    <span class="static" :class="classObjectComputed">This text is active and has errors. (with computed property)</span><br>
+    <button v-on:click="isActive = !isActive">Toggle isActive</button> - <button v-on:click="hasError = !hasError">Toggle hasError</button>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        isActive: false,
+        hasError: false,
+        classObject: {
+          active: true,
+          'has-error': false
+        }
+      },
+      computed: {
+        classObjectComputed() {
+          return {
+            active: this.isActive,
+            'has-error': this.hasError
+          };
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

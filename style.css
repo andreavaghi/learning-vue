@@ -50,3 +50,11 @@ a:active, a:focus {
 .green {
   color: #42b983;
 }
+
+.active {
+  font-weight: 700;
+}
+
+.has-error {
+  color: #ED4C40;
+}
