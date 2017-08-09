@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <a href="/">← Back</a>
+  <hr />
+  <h1>Class and Style Bindings</h1>
+
+  <div id="app">
+    <h3>Binding HTML Classes</h3>
+    <span v-if="ok">Yes.</span><br>
+    <button v-on:click="ok = !ok">Remove Elements</button>
+
+    <h5># <span>Conditional Groups with v-if on &lt;template&gt;</span></h5>
+    <template v-if="ok">
+      <span>This</span><br>
+      <span>is a</span><br>
+      <span>template</span><br>
+    </template>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    Vue.component('my-component', {
+      template: '<span class="italic">This is a component</span>'
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        ok: false
+      }
+    });
+  </script>
+</body>
+
+</html>

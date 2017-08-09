@@ -13,18 +13,42 @@
   <hr />
   <h1>Class and Style Bindings</h1>
 
-  <h3>Binding HTML Classes</h3>
   <div id="app">
+    <h3>Binding HTML Classes</h3>
     <h5># <span>Object Syntax</span></h5>
     <span :class="{active: isActive}">This text is active.</span><br>
     <span class="static" :class="{active: isActive, 'has-error': hasError}">This text is active and has errors.</span><br>
     <span class="static" :class="classObject">This text is active and has errors. (with classObject - static)</span><br>
     <span class="static" :class="classObjectComputed">This text is active and has errors. (with computed property)</span><br>
     <button v-on:click="isActive = !isActive">Toggle isActive</button> - <button v-on:click="hasError = !hasError">Toggle hasError</button>
+
+    <h5># <span>Array Syntax</span></h5>
+    <span :class="[activeClass, errorClass]">This text has classes with array syntax</span><br>
+    <span :class="[isActive ? activeClass : '', errorClass]">This text has classes with conditional array syntax</span><br>
+    <span :class="[{ active: isActive }, errorClass]">This text has classes with mixed syntax</span>
+
+    <h5># <span>With Components</span></h5>
+    <my-component class="active"></my-component><br>
+    <my-component :class="{ active: isActive }"></my-component>
+
+    <h3>Binding Inline Styles</h3>
+    <h5># <span>Object Syntax</span></h5>
+    <span :style="{ color: activeColor, fontSize: fontSize + 'px' }">This text has inline styles</span><br>
+    <span :style="styleObject">This text has inline styles with object syntax</span>
+    <h5># <span>Array Syntax</span></h5>
+    <span :style="[styleObject, styleObjectOverride]">This text has inline styles with array syntax</span>
+    <h5># <span>Auto-prefixing</span></h5>
+    <span :style="{ borderRadius: '5px', border: '1px solid #42b983', display: 'inline-block', transform: 'rotate(3deg)', fontSmoothing: 'antialiased' }">This text has inline styles with auto-prefixing</span>
+    <h5># <span>Multiple values</span></h5>
+    <span :style="{ display: ['-webkit-box', '-ms-flebox', 'flex'] }">This text has inline style with multiple values</span>
   </div>
 
   <script src="https://unpkg.com/vue"></script>
   <script>
+    Vue.component('my-component', {
+      template: '<span class="italic">This is a component</span>'
+    });
+
     var app = new Vue({
       el: '#app',
       data: {
@@ -33,6 +57,17 @@
         classObject: {
           active: true,
           'has-error': false
+        },
+        activeClass: 'active',
+        errorClass: 'has-error',
+        activeColor: '#ED4C40',
+        fontSize: 30,
+        styleObject: {
+          color: '#ED4C40',
+          fontSize: '13px'
+        },
+        styleObjectOverride: {
+          fontStyle: 'italic'
         }
       },
       computed: {

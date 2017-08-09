@@ -58,3 +58,7 @@ a:active, a:focus {
 .has-error {
   color: #ED4C40;
 }
+
+.italic {
+  font-style: italic;
+}
