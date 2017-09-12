@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue</title>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <a href="/">← Back</a>
+  <hr />
+  <h1>List Rendering</h1>
+
+  <div id="app">
+    <h3>v-for</h3>
+    <h5># <span>Basic Usage</span></h5>
+    <ul>
+      <li v-for="item in items">
+        {{item.message}}
+      </li>
+    </ul>
+    <ul>
+      <li v-for="(item, index) in items">
+        {{message}} - {{index}} - {{item.message}}
+      </li>
+    </ul>
+
+    <h5># <span>Template v-for</span></h5>
+    <ul>
+      <template v-for="item in items">
+        <li>{{item.message}}</li>
+        <hr>
+      </template>
+    </ul>
+
+    <h5># <span>Object v-for</span></h5>
+    <ul>
+      <li v-for="value in object">
+        {{value}}
+      </li>
+      <li v-for="(value, key) in object">
+        {{key}} : {{value}}
+      </li>
+      <li v-for="(value, key, index) in object">
+        {{index}}. {{key}} : {{value}}
+      </li>
+    </ul>
+
+    <h5># <span>Range v-for</span></h5>
+    <span v-for="n in 10">{{n}} </span>
+
+    <h5># <span>Components and v-for</span></h5>
+    <ul>
+      <li
+        is="list-item"
+        v-for="(item, index) in items"
+        :key="index"
+        :message="item.message"
+      ></li>
+    </ul>
+
+    <h5># <span>v-for with v-if</span></h5>
+    <ul>
+      <li v-for="(item, index) in items" v-if="index%2 !== 0">
+        {{item.message}}
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    Vue.component('list-item', {
+      template: `<li>{{message}}</li>`,
+      props: ['message']
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Count',
+        items: [
+          { message: 'Foo' },
+          { message: 'Bar' }
+        ],
+        object: {
+          firstName: 'John',
+          lastName: 'Doe',
+          age: 30
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

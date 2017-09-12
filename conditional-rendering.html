@@ -14,28 +14,67 @@
   <h1>Class and Style Bindings</h1>
 
   <div id="app">
-    <h3>Binding HTML Classes</h3>
-    <span v-if="ok">Yes.</span><br>
-    <button v-on:click="ok = !ok">Remove Elements</button>
+    <h3>v-if</h3>
+    <span v-if="visible">Yes.</span><br>
+    <button @click="visible = !visible">Add Elements</button>
 
     <h5># <span>Conditional Groups with v-if on &lt;template&gt;</span></h5>
-    <template v-if="ok">
+    <template v-if="visible">
       <span>This</span><br>
       <span>is a</span><br>
-      <span>template</span><br>
+      <span>template.</span><br>
     </template>
+
+    <h5># <span>v-else</span></h5>
+    <span v-if="number > 0.5">
+      Now you see me.
+    </span>
+    <span v-else>
+      Now you don't.
+    </span>
+
+    <h5># <span>v-else-if</span></h5>
+    <span v-if="type === 'A'">
+      A
+    </span>
+    <span v-else-if="type === 'B'">
+      B
+    </span>
+    <span v-else-if="type === 'C'">
+      C
+    </span>
+    <span v-else>
+      Not A/B/C
+    </span>
+
+    <h5># <span>Controlling Reusable Elements with key</span></h5>
+    <template v-if="email">
+      <label>Email</label>
+      <input placeholder="Enter your email address" key="email-input">
+    </template>
+    <template v-else>
+      <label>Username</label>
+      <input placeholder="Enter your username" key="username-input">
+    </template>
+    <button @click="email = !email">Change login type</button>
+
+    <h3>v-show</h3>
+    <span v-show="visible">Yes.</span><br>
+    <button @click="visible = !visible">Show Elements</button>
+
+    <h3>v-if vs v-show</h3>
+    <span>Prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.</span>
   </div>
 
   <script src="https://unpkg.com/vue"></script>
   <script>
-    Vue.component('my-component', {
-      template: '<span class="italic">This is a component</span>'
-    });
-
     var app = new Vue({
       el: '#app',
       data: {
-        ok: false
+        visible: false,
+        email: false,
+        number: Math.random(),
+        type: 'A'
       }
     });
   </script>
